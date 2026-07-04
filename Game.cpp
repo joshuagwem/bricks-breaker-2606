@@ -111,7 +111,30 @@ void Game::CheckCollision()
 	}
 
 	// TODO #6 - If no bricks remain, pause ball and display (render) victory text with R to reset
+	// Creating a boxed message after winning/losing.
+	Box messageBox;
+	messageBox.width = 40;
+	messageBox.height = 3;
+	messageBox.x_position = WINDOW_WIDTH / 2 - (messageBox.width / 2);
+	messageBox.y_position = WINDOW_HEIGHT / 3 - (messageBox.height / 2);
+	messageBox.doubleThick = true;
+	messageBox.color = ConsoleColor::White;
 
+	// Using if statement to check if any elements left on vector.
+	if (bricks.size() == 0)
+	{
+		Game::Render();
+		ball.moving = false;
+		messageBox.color = ConsoleColor::Blue;
+		messageBox.Draw();
+		std::string winMessage = "You won! Press 'R' to reset.";
+		Console::WordWrap(messageBox.x_position + 5, messageBox.y_position + 1, messageBox.width - 2, winMessage.c_str());
+		while (bricks.size() == 0)
+		{
+			if (GetAsyncKeyState('R') & 0x1)
+				Reset();
+		}
+	}
 
 	if (paddle.Contains(ball.x_position + ball.x_velocity, ball.y_velocity + ball.y_position))
 	{
