@@ -142,4 +142,19 @@ void Game::CheckCollision()
 	}
 
 	// TODO #7 - If ball touches bottom of window, pause ball and display (render) defeat text with R to reset
+	// Using if statement to check if ball is at window's max height.
+	if (ball.y_position == paddle.y_position)
+	{
+		bricks.clear();
+		ball.moving = false;
+		messageBox.color = ConsoleColor::Red;
+		messageBox.Draw();
+		std::string loseMessage = "You lost... Press 'R' to reset.";
+		Console::WordWrap(messageBox.x_position + 3, messageBox.y_position + 1, messageBox.width - 2, loseMessage.c_str());
+		while (ball.y_position == paddle.y_position)
+		{
+			if (GetAsyncKeyState('R') & 0x1)
+				Reset();
+		}
+	}
 }
