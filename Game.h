@@ -13,7 +13,9 @@ class Game
 	// Added a vector and commented out "Box brick;" to add more bricks.
 	// This is a work in progress but changes to all "brick" phrasing will change to "bricks" to utilize the vector.
 	std::vector<Box> bricks;
-	//Box brick;
+	// Box brick;
+
+	// Looks like I missed the pull request section... I will use this edit for this.
 
 public:
 	Game();
