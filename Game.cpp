@@ -29,6 +29,15 @@ void Game::Reset()
 	brick.doubleThick = true;
 	brick.color = ConsoleColor::DarkGreen;
 	// Added a for loop here to add a total of 5 bricks per instruction with a 5 pixel gap in between.
+
+	// Testing
+	if (bricks.size() > 0)
+	{
+		bricks.erase(bricks.begin(), bricks.end());
+	}
+	// End testing
+	// Found a workaround to remove bricks in the meantime with the above test, will create an actual fix at a future date.
+
 	for (size_t i = 0; i < 5; i++)
 	{
 		bricks.push_back(brick);
@@ -146,6 +155,10 @@ void Game::CheckCollision()
 	if (ball.y_position == paddle.y_position)
 	{
 		bricks.clear();
+		if (bricks.size() > 0)
+		{
+
+		}
 		ball.moving = false;
 		messageBox.color = ConsoleColor::Red;
 		messageBox.Draw();
