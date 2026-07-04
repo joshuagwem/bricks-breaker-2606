@@ -77,7 +77,12 @@ void Game::Render() const
 	ball.Draw();
 
 	// TODO #3 - Update render to render all bricks
-	brick.Draw();
+	// Comment out single draw, to draw the full vector using a for loop.
+	for (size_t i = 0; i < bricks.size(); i++)
+	{
+		bricks[i].Draw();
+	}
+	// brick.Draw();
 
 	Console::Lock(false);
 }
@@ -85,13 +90,24 @@ void Game::Render() const
 void Game::CheckCollision()
 {
 	// TODO #4 - Update collision to check all bricks
-	if (brick.Contains(ball.x_position + ball.x_velocity, ball.y_position + ball.y_velocity))
+	// Used a for loop at the beginning to check the full vector.
+	// All commented out code for bricks color is for debugging purposes.
+	for (size_t i = 0; i < bricks.size(); i++)
 	{
-		brick.color = ConsoleColor(brick.color - 1);
-		ball.y_velocity *= -1;
+		if (bricks[i].Contains(ball.x_position + ball.x_velocity, ball.y_position + ball.y_velocity))
+		{
+			bricks[i].color = ConsoleColor(bricks[i].color - 1);
+			//bricks[i].color = ConsoleColor(bricks[i].color - 2);
+			ball.y_velocity *= -1;
 
-		// TODO #5 - If the ball hits the same brick 3 times (color == black), remove it from the vector
-
+			// TODO #5 - If the ball hits the same brick 3 times (color == black), remove it from the vector
+			// Used the ConsoleColor code to erase an element from a vector.
+			if (bricks[i].color == ConsoleColor::Black)
+			{
+				bricks.erase(bricks.begin() + i);
+				//bricks.erase(bricks.begin(), bricks.end());
+			}
+		}
 	}
 
 	// TODO #6 - If no bricks remain, pause ball and display (render) victory text with R to reset
