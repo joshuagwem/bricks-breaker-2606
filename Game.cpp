@@ -20,12 +20,20 @@ void Game::Reset()
 	ResetBall();
 
 	// TODO #2 - Add this brick and 4 more bricks to the vector
+	// Added the Box brick to this location to push_back to the vector.
+	Box brick;
 	brick.width = 10;
 	brick.height = 2;
 	brick.x_position = 0;
 	brick.y_position = 5;
 	brick.doubleThick = true;
 	brick.color = ConsoleColor::DarkGreen;
+	// Added a for loop here to add a total of 5 bricks per instruction with a 5 pixel gap in between.
+	for (size_t i = 0; i < 5; i++)
+	{
+		bricks.push_back(brick);
+		brick.x_position = brick.x_position + 16/*(WINDOW_WIDTH / 5)*/;
+	}
 }
 
 void Game::ResetBall()
